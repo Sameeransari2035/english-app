@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnglishPro</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- PWA Links -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4A6CF7">
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="app-header">
+    <button class="hamburger-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <h1 class="app-title">EnglishPro</h1>
+    <button class="notif-btn"><i class="fas fa-bell"></i></button>
+  </header>
+
+  <!-- SIDEBAR (HAMBURGER MENU) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="user-avatar"><i class="fas fa-user"></i></div>
+      <div class="user-info">
+        <h3>John Doe</h3>
+        <p>Level: Intermediate</p>
+      </div>
+      <button class="close-btn" onclick="closeSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a href="#" onclick="showDynamicPage('profile')"><i class="fas fa-user"></i> My Profile</a>
+      <a href="#" onclick="showDynamicPage('level')"><i class="fas fa-chart-line"></i> My English Level</a>
+      <a href="#" onclick="showDynamicPage('wallet')"><i class="fas fa-wallet"></i> My Reward & Wallet</a>
+      <a href="#" onclick="showDynamicPage('reviews')"><i class="fas fa-star"></i> My Reviews</a>
+      <a href="#" onclick="showDynamicPage('reactions')"><i class="fas fa-heart"></i> Partners Reactions</a>
+      <a href="#" onclick="showDynamicPage('activities')"><i class="fas fa-history"></i> My Activities</a>
+      <a href="#" onclick="showDynamicPage('transactions')"><i class="fas fa-exchange-alt"></i> Transaction History</a>
+      <a href="#" onclick="showDynamicPage('faqs')"><i class="fas fa-question-circle"></i> FAQs</a>
+      <a href="#" onclick="showDynamicPage('invite')"><i class="fas fa-user-plus"></i> Invite Friends</a>
+      <a href="#" onclick="showDynamicPage('settings')"><i class="fas fa-cog"></i> Settings</a>
+      
+      <!-- DARK MODE BUTTON ADDED HERE -->
+      <a href="#" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark Mode <span id="dark-mode-status" style="margin-left:auto; font-size:12px; color:#888;">OFF</span></a>
+      
+      <a href="#" onclick="showDynamicPage('policies')"><i class="fas fa-file-contract"></i> Refund & Other Policies</a>
+      <button class="rate-btn" onclick="rateUs()"><i class="fas fa-star"></i> Rate Us</button>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="main-content" id="mainContent">
+
+    <!-- 1. HOME PAGE -->
+    <section class="page active" id="page-home">
+      <div class="welcome-card">
+        <h2>Welcome back, John! 👋</h2>
+        <p>Continue your English learning journey</p>
+        <div class="progress-bar"><div class="progress-fill" style="width: 65%">65%</div></div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><i class="fas fa-fire"></i><h3 id="streak-display">15</h3><p>Day Streak</p></div>
+        <div class="stat-card"><i class="fas fa-book"></i><h3 id="lessons-display">42</h3><p>Lessons</p></div>
+        <div class="stat-card"><i class="fas fa-coins"></i><h3 id="coins-display">850</h3><p>Coins</p></div>
+      </div>
+      
+      <!-- LESSON COMPLETE BUTTON -->
+      <button class="btn-primary" style="width: 100%; margin-bottom: 20px; background: #28a745;" onclick="completeLesson()">
+        <i class="fas fa-check-circle"></i> Complete a Lesson (+20 Coins)
+      </button>
+
+      <h2 class="section-title">Quick Practice</h2>
+      <div class="word-card">
+        <h3>Word of the Day</h3>
+        <p class="word">Eloquent</p>
+        <p class="meaning">Fluent or persuasive in speaking or writing</p>
+        <button class="btn-primary" onclick="showToast('Practice started!', 'success')">Practice Now</button>
+      </div>
+
+      <!-- QUIZ START BUTTON -->
+      <div style="background: white; padding: 20px; border-radius: 15px; margin-top: 15px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <h3 style="margin-bottom: 10px; color: #333;">Test Your Knowledge!</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Play Daily Quiz and earn 10 Coins.</p>
+        <button class="btn-primary" onclick="startQuiz()">Start Quiz <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </section>
+
+        <!-- 2. COURSES PAGE -->
+    <section class="page" id="page-courses">
+      <h2 class="page-title">Courses</h2>
+      
+      <!-- NAYA: Search Bar -->
+      <div style="margin-bottom: 20px; position: relative;">
+        <i class="fas fa-search" style="position: absolute; left: 15px; top: 15px; color: #888;"></i>
+        <input type="text" id="courseSearch" onkeyup="searchCourse()" placeholder="Search courses..." 
+               style="width: 100%; padding: 14px 14px 14px 40px; border-radius: 10px; border: 1px solid #ddd; font-size: 14px; outline: none; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+      </div>
+
+      <!-- NAYA: Courses List Container (id="course-list" zaroori hai) -->
+      <div id="course-list">
+        <div class="course-card">
+          <div class="course-icon">📚</div>
+          <div class="course-info"><h3>Beginner English</h3><p>12 Lessons • 2 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:40%"></div></div></div>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">🗣️</div>
+          <div class="course-info"><h3>Spoken English</h3><p>20 Lessons • 4 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:15%"></div></div></div>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">✍️</div>
+          <div class="course-info"><h3>Grammar Mastery</h3><p>15 Lessons • 3 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:0%"></div></div></div>
+        </div>
+        <!-- Naya course test karne ke liye -->
+        <div class="course-card">
+          <div class="course-icon">💼</div>
+          <div class="course-info"><h3>Business English</h3><p>18 Lessons • 3.5 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:10%"></div></div></div>
+        </div>
+      </div>
+      
+      <!-- Message if no course found -->
+      <p id="no-course-msg" style="text-align: center; color: #888; display: none; margin-top: 20px;">No courses found! Try another keyword.</p>
+    </section>
+      <div class="course-card">
+        <div class="course-icon">📚</div>
+        <div class="course-info"><h3>Beginner English</h3><p>12 Lessons • 2 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:40%"></div></div></div>
+      </div>
+      <div class="course-card">
+        <div class="course-icon">🗣️</div>
+        <div class="course-info"><h3>Spoken English</h3><p>20 Lessons • 4 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:15%"></div></div></div>
+      </div>
+      <div class="course-card">
+        <div class="course-icon">✍️</div>
+        <div class="course-info"><h3>Grammar Mastery</h3><p>15 Lessons • 3 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:0%"></div></div></div>
+      </div>
+    </section>
+
+    <!-- 3. PARTNER PAGE -->
+    <section class="page" id="page-partner">
+      <h2 class="page-title">Speaking Partners</h2>
+      <div class="partner-card"><div class="avatar">👩</div><div><h3>Sarah Johnson</h3><p>🇺🇸 Native • Online</p></div><button class="btn-small" onclick="showToast('Chat starting...')">Chat</button></div>
+      <div class="partner-card"><div class="avatar">👨</div><div><h3>Michael Brown</h3><p>🇬🇧 Native • Online</p></div><button class="btn-small" onclick="showToast('Chat starting...')">Chat</button></div>
+      <div class="partner-card"><div class="avatar">👩‍🦰</div><div><h3>Emma Wilson</h3><p>🇦🇺 Native • Offline</p></div><button class="btn-small" onclick="showToast('Chat starting...')">Chat</button></div>
+    </section>
+
+    <!-- 4. SHORTS PAGE -->
+    <section class="page" id="page-shorts">
+      <h2 class="page-title">Shorts</h2>
+      <div class="shorts-container">
+        <div class="short-card" onclick="showToast('Playing video...')"><div class="short-thumb">🎬</div><p>5 Common English Mistakes</p><span>❤️ 1.2K</span></div>
+        <div class="short-card" onclick="showToast('Playing video...')"><div class="short-thumb">🎥</div><p>How to say Hello in 10 ways</p><span>❤️ 3.4K</span></div>
+        <div class="short-card" onclick="showToast('Playing video...')"><div class="short-thumb">📹</div><p>Phrasal Verbs Made Easy</p><span>❤️ 890</span></div>
+      </div>
+    </section>
+
+    <!-- 5. HELP FAQS PAGE -->
+    <section class="page" id="page-help">
+      <h2 class="page-title">Help & FAQs</h2>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question"><span>How do I earn coins?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer">You earn coins by completing lessons, daily practice, and inviting friends.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question"><span>How to book a partner?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer">Go to Partner section, select a partner, and tap Chat to start a session.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question"><span>Refund policy?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer">Refunds are available within 7 days of purchase if less than 20% of course is completed.</div></div>
+    </section>
+
+    <!-- 6. DYNAMIC PAGE -->
+    <section class="page" id="page-dynamic">
+      <h2 class="page-title" id="dynamicTitle">Page</h2>
+      <div id="dynamicContent"></div>
+    </section>
+        <!-- NAYA: EDIT PROFILE PAGE -->
+    <section class="page" id="page-edit-profile">
+      <h2 class="page-title">Edit Profile</h2>
+      <div class="info-card">
+        <div style="margin-bottom: 15px;">
+          <label style="font-size: 13px; color: #666; font-weight: 600;">Full Name</label>
+          <input type="text" id="profileName" placeholder="Enter your name" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 5px; outline: none;">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label style="font-size: 13px; color: #666; font-weight: 600;">Email Address</label>
+          <input type="email" id="profileEmail" placeholder="Enter your email" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 5px; outline: none;">
+        </div>
+        <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="saveProfile()">Save Changes</button>
+      </div>
+    </section>
+
+    <!-- 7. QUIZ PAGE -->
+    <section class="page" id="page-quiz">
+      <h2 class="page-title">Daily Quiz</h2>
+      <div id="quiz-container">
+        <div class="info-card" style="text-align: center; padding: 30px 20px;">
+          <h3 id="question-text" style="font-size: 18px; margin-bottom: 20px;">Question loading...</h3>
+          <div id="options-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
+        </div>
+      </div>
+      <div id="quiz-result" style="display: none; text-align: center; padding: 20px;">
+        <h2 id="result-title" style="color: #28a745; margin-bottom: 10px;">Correct! 🎉</h2>
+        <p id="result-message" style="color: #666; margin-bottom: 20px;">You earned 10 coins.</p>
+        <button class="btn-primary" onclick="navigate('home', document.querySelector('.nav-item'))">Back to Home</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item active" onclick="navigate('home', this)"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#" class="nav-item" onclick="navigate('courses', this)"><i class="fas fa-book"></i><span>Courses</span></a>
+    <a href="#" class="nav-item" onclick="navigate('partner', this)"><i class="fas fa-users"></i><span>Partner</span></a>
+    <a href="#" class="nav-item" onclick="navigate('shorts', this)"><i class="fas fa-play-circle"></i><span>Shorts</span></a>
+    <a href="#" class="nav-item" onclick="navigate('help', this)"><i class="fas fa-question-circle"></i><span>Help</span></a>
+  </nav>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "EnglishPro Learning App",
+  "short_name": "EnglishPro",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#4A6CF7",
+  "description": "Learn English on the go with EnglishPro.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3239/3239722.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
