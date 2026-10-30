@@ -317,3 +317,59 @@ setTimeout(() => {
     if (sidebarName) sidebarName.innerText = savedName;
   }
 }, 500);
+
+// ==========================================
+// LEVEL 7: NOTIFICATIONS SYSTEM
+// ==========================================
+
+// 1. Notifications ka Data
+const notificationsData = [
+  { icon: "fa-gift", color: "#FFB800", title: "Welcome Bonus!", desc: "You received 50 coins as a welcome gift. Keep learning!" },
+  { icon: "fa-book", color: "#4A6CF7", title: "New Course Added", desc: "Business English course is now available. Check it out!" },
+  { icon: "fa-fire", color: "#dc3545", title: "Streak Alert!", desc: "You are on a 15-day streak. Complete a lesson today to keep it alive!" }
+];
+
+// 2. Notification page kholne ka function
+function openNotifications() {
+  // Red dot ko hamesha ke liye hatao (LocalStorage mein save kar do)
+  document.getElementById('notifDot').classList.remove('show');
+  localStorage.setItem('notificationsRead', 'true');
+
+  // Page change karo
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-notifications').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  // List container khaali karo
+  const listContainer = document.getElementById('notification-list');
+  listContainer.innerHTML = '';
+
+  // Data loop karke HTML generate karo
+  notificationsData.forEach(notif => {
+    const item = document.createElement('div');
+    item.className = 'notif-item';
+    item.innerHTML = `
+      <div class="notif-icon" style="background-color: ${notif.color};">
+        <i class="fas ${notif.icon}"></i>
+      </div>
+      <div class="notif-content">
+        <h4>${notif.title}</h4>
+        <p>${notif.desc}</p>
+      </div>
+    `;
+    listContainer.appendChild(item);
+  });
+}
+
+// 3. Check karo ki user ne notification padh liya hai ya nahi
+document.addEventListener("DOMContentLoaded", function() {
+  let isRead = localStorage.getItem('notificationsRead');
+  let dot = document.getElementById('notifDot');
+  
+  // Agar pehle se padha hua hai, toh red dot mat dikhao
+  if (isRead === 'true') {
+    if(dot) dot.classList.remove('show');
+  } else {
+    if(dot) dot.classList.add('show');
+  }
+});

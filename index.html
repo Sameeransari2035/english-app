@@ -17,7 +17,10 @@
   <header class="app-header">
     <button class="hamburger-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
     <h1 class="app-title">EnglishPro</h1>
-    <button class="notif-btn"><i class="fas fa-bell"></i></button>
+    <button class="notif-btn" onclick="openNotifications()">
+      <i class="fas fa-bell"></i>
+      <span class="notif-dot show" id="notifDot"></span>
+    </button>
   </header>
 
   <!-- SIDEBAR (HAMBURGER MENU) -->
@@ -44,7 +47,7 @@
       <a href="#" onclick="showDynamicPage('invite')"><i class="fas fa-user-plus"></i> Invite Friends</a>
       <a href="#" onclick="showDynamicPage('settings')"><i class="fas fa-cog"></i> Settings</a>
       
-      <!-- DARK MODE BUTTON ADDED HERE -->
+      <!-- DARK MODE BUTTON -->
       <a href="#" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark Mode <span id="dark-mode-status" style="margin-left:auto; font-size:12px; color:#888;">OFF</span></a>
       
       <a href="#" onclick="showDynamicPage('policies')"><i class="fas fa-file-contract"></i> Refund & Other Policies</a>
@@ -69,7 +72,6 @@
         <div class="stat-card"><i class="fas fa-coins"></i><h3 id="coins-display">850</h3><p>Coins</p></div>
       </div>
       
-      <!-- LESSON COMPLETE BUTTON -->
       <button class="btn-primary" style="width: 100%; margin-bottom: 20px; background: #28a745;" onclick="completeLesson()">
         <i class="fas fa-check-circle"></i> Complete a Lesson (+20 Coins)
       </button>
@@ -82,7 +84,6 @@
         <button class="btn-primary" onclick="showToast('Practice started!', 'success')">Practice Now</button>
       </div>
 
-      <!-- QUIZ START BUTTON -->
       <div style="background: white; padding: 20px; border-radius: 15px; margin-top: 15px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
         <h3 style="margin-bottom: 10px; color: #333;">Test Your Knowledge!</h3>
         <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Play Daily Quiz and earn 10 Coins.</p>
@@ -90,18 +91,16 @@
       </div>
     </section>
 
-        <!-- 2. COURSES PAGE -->
+    <!-- 2. COURSES PAGE -->
     <section class="page" id="page-courses">
       <h2 class="page-title">Courses</h2>
       
-      <!-- NAYA: Search Bar -->
       <div style="margin-bottom: 20px; position: relative;">
         <i class="fas fa-search" style="position: absolute; left: 15px; top: 15px; color: #888;"></i>
         <input type="text" id="courseSearch" onkeyup="searchCourse()" placeholder="Search courses..." 
                style="width: 100%; padding: 14px 14px 14px 40px; border-radius: 10px; border: 1px solid #ddd; font-size: 14px; outline: none; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
       </div>
 
-      <!-- NAYA: Courses List Container (id="course-list" zaroori hai) -->
       <div id="course-list">
         <div class="course-card">
           <div class="course-icon">📚</div>
@@ -115,28 +114,13 @@
           <div class="course-icon">✍️</div>
           <div class="course-info"><h3>Grammar Mastery</h3><p>15 Lessons • 3 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:0%"></div></div></div>
         </div>
-        <!-- Naya course test karne ke liye -->
         <div class="course-card">
           <div class="course-icon">💼</div>
           <div class="course-info"><h3>Business English</h3><p>18 Lessons • 3.5 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:10%"></div></div></div>
         </div>
       </div>
       
-      <!-- Message if no course found -->
       <p id="no-course-msg" style="text-align: center; color: #888; display: none; margin-top: 20px;">No courses found! Try another keyword.</p>
-    </section>
-      <div class="course-card">
-        <div class="course-icon">📚</div>
-        <div class="course-info"><h3>Beginner English</h3><p>12 Lessons • 2 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:40%"></div></div></div>
-      </div>
-      <div class="course-card">
-        <div class="course-icon">🗣️</div>
-        <div class="course-info"><h3>Spoken English</h3><p>20 Lessons • 4 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:15%"></div></div></div>
-      </div>
-      <div class="course-card">
-        <div class="course-icon">✍️</div>
-        <div class="course-info"><h3>Grammar Mastery</h3><p>15 Lessons • 3 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:0%"></div></div></div>
-      </div>
     </section>
 
     <!-- 3. PARTNER PAGE -->
@@ -170,7 +154,8 @@
       <h2 class="page-title" id="dynamicTitle">Page</h2>
       <div id="dynamicContent"></div>
     </section>
-        <!-- NAYA: EDIT PROFILE PAGE -->
+
+    <!-- 7. EDIT PROFILE PAGE -->
     <section class="page" id="page-edit-profile">
       <h2 class="page-title">Edit Profile</h2>
       <div class="info-card">
@@ -186,7 +171,22 @@
       </div>
     </section>
 
-    <!-- 7. QUIZ PAGE -->
+    <!-- 8. NOTIFICATIONS PAGE -->
+    <section class="page" id="page-notifications">
+      <div style="margin-bottom: 20px;">
+        <button onclick="navigate('home', document.querySelector('.nav-item'))" style="background: none; border: none; color: #4A6CF7; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-arrow-left"></i> Back to Home
+        </button>
+      </div>
+
+      <h2 class="page-title">Notifications</h2>
+      
+      <div id="notification-list">
+        <!-- Notifications JS se yahan aayengi -->
+      </div>
+    </section>
+
+    <!-- 9. QUIZ PAGE -->
     <section class="page" id="page-quiz">
       <h2 class="page-title">Daily Quiz</h2>
       <div id="quiz-container">
