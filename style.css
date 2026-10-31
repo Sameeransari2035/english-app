@@ -802,3 +802,265 @@ body.dark-mode .notif-item {
 body.dark-mode .notif-content h4 {
   color: #fff;
 }
+/* ===== HORIZONTAL VIDEO SLIDER ===== */
+.video-slider {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto; /* Horizontal scroll enable karega */
+  padding-bottom: 15px; /* Scrollbar ke liye thodi jagah */
+  scroll-snap-type: x mandatory; /* Scroll karte waqt card par rukega (smooth experience) */
+}
+
+/* Scrollbar ko chota aur sundar banane ke liye (Webkit browsers) */
+.video-slider::-webkit-scrollbar {
+  height: 6px;
+}
+.video-slider::-webkit-scrollbar-track {
+  background: transparent;
+}
+.video-slider::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+body.dark-mode .video-slider::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+/* VIDEO CARD DESIGN */
+.video-card {
+  min-width: 260px; /* Card ki minimum width */
+  max-width: 260px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  scroll-snap-align: start; /* Smooth scroll align */
+  flex-shrink: 0; /* Card ko chota hone se rokega */
+}
+
+.video-card video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Size ko fix karega play hone par */
+  object-fit: cover; /* Video ko stretch hone se bachayega */
+  background: #000;
+  border-bottom: 1px solid #eee;
+}
+
+.video-info {
+  padding: 12px;
+}
+
+.video-info h3 {
+  font-size: 14px;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.video-info p {
+  font-size: 12px;
+  color: #777;
+}
+
+/* DARK MODE FIX FOR VIDEO CARD */
+body.dark-mode .video-card {
+  background: #1e1e1e;
+}
+body.dark-mode .video-card video {
+  border-bottom: 1px solid #333;
+}
+body.dark-mode .video-info h3 {
+  color: #fff;
+}
+body.dark-mode .video-info p {
+  color: #aaa;
+}
+/* ===== ALL VIDEOS VERTICAL LIST ===== */
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.video-list-item {
+  display: flex;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Dark Mode Fix */
+body.dark-mode .video-list-item {
+  background: #1e1e1e;
+}
+body.dark-mode .video-list-item h3 {
+  color: #fff;
+}
+body.dark-mode .video-list-item p {
+  color: #aaa;
+}
+/* ===== HERO THUMBNAIL (BADA IMAGE CARD) ===== */
+.hero-thumbnail {
+  position: relative;
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+}
+
+.hero-thumbnail img {
+  width: 100%;
+  height: 220px; /* Height badha di taaki image badi dikhe */
+  object-fit: cover;
+  display: block;
+}
+
+/* Text Info Niche (Gradient ke sath) */
+.hero-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: white;
+}
+
+.hero-info h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.hero-info p {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* ===== ALAG LAYOUT: ELITE PREMIUM COURSE ===== */
+.elite-course-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+  cursor: pointer;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.elite-course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(74, 108, 247, 0.15);
+}
+
+/* Image aur Badge */
+.elite-img-wrapper {
+  position: relative;
+  height: 160px;
+  width: 100%;
+}
+
+.elite-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.elite-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #e74c3c;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Content Area */
+.elite-content {
+  padding: 20px;
+}
+
+.elite-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.elite-content h3 {
+  font-size: 17px;
+  color: #111;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.elite-content p {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Footer Area */
+.elite-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed #eee;
+  padding-top: 15px;
+}
+
+.elite-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-price {
+  font-size: 20px;
+  font-weight: 800;
+  color: #4A6CF7;
+}
+
+.old-price {
+  font-size: 12px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.elite-btn {
+  background: #4A6CF7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(74, 108, 247, 0.3);
+  transition: 0.2s;
+}
+
+.elite-btn:hover {
+  background: #3854c7;
+}
+
+/* Dark Mode Support */
+body.dark-mode .elite-course-card {
+  background: #1e1e1e;
+  border-color: #333;
+}
+body.dark-mode .elite-content h3 { color: #fff; }
+body.dark-mode .elite-footer { border-top-color: #333; }
+body.dark-mode .elite-badge { background: #2a2a2a; color: #ff6b6b; }

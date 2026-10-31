@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EnglishPro</title>
+  <title>Talk2Partners</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
@@ -16,7 +16,7 @@
   <!-- TOP HEADER -->
   <header class="app-header">
     <button class="hamburger-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-    <h1 class="app-title">EnglishPro</h1>
+    <h1 class="app-title">Talk2Partners</h1>
     <button class="notif-btn" onclick="openNotifications()">
       <i class="fas fa-bell"></i>
       <span class="notif-dot show" id="notifDot"></span>
@@ -57,40 +57,164 @@
 
   <!-- MAIN CONTENT AREA -->
   <main class="main-content" id="mainContent">
-
-    <!-- 1. HOME PAGE -->
+<!-- 1. HOME PAGE -->
     <section class="page active" id="page-home">
-      <div class="welcome-card">
-        <h2>Welcome back, John! 👋</h2>
-        <p>Continue your English learning journey</p>
-        <div class="progress-bar"><div class="progress-fill" style="width: 65%">65%</div></div>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-card"><i class="fas fa-fire"></i><h3 id="streak-display">15</h3><p>Day Streak</p></div>
-        <div class="stat-card"><i class="fas fa-book"></i><h3 id="lessons-display">42</h3><p>Lessons</p></div>
-        <div class="stat-card"><i class="fas fa-coins"></i><h3 id="coins-display">850</h3><p>Coins</p></div>
+      
+      <!-- NAYA: SIRF IMAGE THUMBNAIL -->
+      <div class="hero-thumbnail" onclick="navigate('partner', document.querySelectorAll('.nav-item')[2])">
+        <img src="partners.png" alt="partners image">
+        <div class="hero-info">
+        </div>
       </div>
       
-      <button class="btn-primary" style="width: 100%; margin-bottom: 20px; background: #28a745;" onclick="completeLesson()">
-        <i class="fas fa-check-circle"></i> Complete a Lesson (+20 Coins)
-      </button>
+            <!-- TITLE AUR VIEW ALL BUTTON -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h2 class="page-title" style="margin-bottom: 0;">Demo Videos</h2>
+        <button onclick="navigate('all-videos', document.querySelector('.nav-item'))" style="background: none; border: none; color: #4A6CF7; font-size: 13px; font-weight: 600; cursor: pointer;">
+          View All <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+      
+      
+      <!-- HORIZONTAL SCROLL CONTAINER -->
+      <div class="video-slider">
+        
+        <!-- Video Card 1 -->
+        <div class="video-card">
+          <video width="100%" controls poster="https://images.unsplash.com/photo-1543165365-07232d1dfcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          </video>
+          <div class="video-info">
+            <h3>English Conversation</h3>
+            <p>Listening Practice</p>
+          </div>
+        </div>
 
-      <h2 class="section-title">Quick Practice</h2>
-      <div class="word-card">
-        <h3>Word of the Day</h3>
-        <p class="word">Eloquent</p>
-        <p class="meaning">Fluent or persuasive in speaking or writing</p>
-        <button class="btn-primary" onclick="showToast('Practice started!', 'success')">Practice Now</button>
+        <!-- Video Card 2 -->
+        <div class="video-card">
+          <video width="100%" controls poster="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+            <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+          </video>
+          <div class="video-info">
+            <h3>Grammar Basics</h3>
+            <p>Learn Tenses Easily</p>
+          </div>
+        </div>
+
+        <!-- Video Card 3 -->
+        <div class="video-card">
+          <video width="100%" controls poster="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          </video>
+          <div class="video-info">
+            <h3>Spoken English</h3>
+            <p>Daily Use Sentences</p>
+          </div>
+        </div>
+
+        <!-- Video Card 4 -->
+        <div class="video-card">
+          <video width="100%" controls poster="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+            <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+          </video>
+          <div class="video-info">
+            <h3>Vocabulary Build</h3>
+            <p>New Words Every Day</p>
+          </div>
+        </div>
+
+      </div>
+      <!-- NAYA ALAG LAYOUT: PREMIUM COURSE CARD -->
+      <h2 class="page-title" style="margin-top: 30px; margin-bottom: 15px;">Recommended Course</h2>
+      
+      <div class="elite-course-card" onclick="purchaseCourse()">
+        <!-- Top Image Section -->
+        <div class="elite-img-wrapper">
+          <img src="thumbanil.png"Course">
+          <div class="elite-badge">🔥 Best Seller</div>
+        </div>
+        
+        <!-- Content Section -->
+        <div class="elite-content">
+          <div class="elite-rating">
+            <i class="fas fa-star" style="color: #FFB800;"></i>
+            <span>4.9 (2.5k reviews)</span>
+          </div>
+          
+          <h3>Complete English Speaking</h3>
+          <p>Master fluency, grammar, and vocabulary with expert native tutors.</p>
+          
+          <!-- Footer: Price & Button -->
+          <div class="elite-footer">
+            <div class="elite-price">
+              <span class="new-price">₹499</span>
+              <span class="old-price">₹1999</span>
+            </div>
+            <button class="elite-btn">Enroll Now</button>
+          </div>
+        </div>
       </div>
 
-      <div style="background: white; padding: 20px; border-radius: 15px; margin-top: 15px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h3 style="margin-bottom: 10px; color: #333;">Test Your Knowledge!</h3>
-        <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Play Daily Quiz and earn 10 Coins.</p>
-        <button class="btn-primary" onclick="startQuiz()">Start Quiz <i class="fas fa-arrow-right"></i></button>
+    </section>
+
+            <!-- NAYA: ALL VIDEOS PAGE -->
+    <section class="page" id="page-all-videos">
+      <div style="margin-bottom: 20px;">
+        <button onclick="navigate('home', document.querySelector('.nav-item'))" style="background: none; border: none; color: #4A6CF7; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-arrow-left"></i> Back to Home
+        </button>
+      </div>
+
+      <h2 class="page-title">All Videos</h2>
+      
+      <!-- Vertical Video List -->
+      <div class="video-list">
+        
+        <!-- Video 1 -->
+        <div class="video-list-item" onclick="showToast('Video Play hogi...', 'success')">
+          <!-- Yahan controls hata kar image laga di hai -->
+          <img src="https://images.unsplash.com/photo-1543165365-07232d1dfcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" width="120" style="border-radius: 8px; flex-shrink: 0; height: 70px; object-fit: cover;">
+          <div style="padding: 0 10px;">
+            <h3 style="font-size: 14px; margin-bottom: 4px; color: #222;">English Conversation</h3>
+            <p style="font-size: 12px; color: #777; margin-bottom: 5px;">Listening Practice</p>
+            <span style="font-size: 11px; color: #999;">5:30 mins</span>
+          </div>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="video-list-item" onclick="showToast('Video Play hogi...', 'success')">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" width="120" style="border-radius: 8px; flex-shrink: 0; height: 70px; object-fit: cover;">
+          <div style="padding: 0 10px;">
+            <h3 style="font-size: 14px; margin-bottom: 4px; color: #222;">Grammar Basics</h3>
+            <p style="font-size: 12px; color: #777; margin-bottom: 5px;">Learn Tenses Easily</p>
+            <span style="font-size: 11px; color: #999;">8:15 mins</span>
+          </div>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="video-list-item" onclick="showToast('Video Play hogi...', 'success')">
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" width="120" style="border-radius: 8px; flex-shrink: 0; height: 70px; object-fit: cover;">
+          <div style="padding: 0 10px;">
+            <h3 style="font-size: 14px; margin-bottom: 4px; color: #222;">Spoken English</h3>
+            <p style="font-size: 12px; color: #777; margin-bottom: 5px;">Daily Use Sentences</p>
+            <span style="font-size: 11px; color: #999;">6:45 mins</span>
+          </div>
+        </div>
+
+        <!-- Video 4 -->
+        <div class="video-list-item" onclick="showToast('Video Play hogi...', 'success')">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" width="120" style="border-radius: 8px; flex-shrink: 0; height: 70px; object-fit: cover;">
+          <div style="padding: 0 10px;">
+            <h3 style="font-size: 14px; margin-bottom: 4px; color: #222;">Vocabulary Build</h3>
+            <p style="font-size: 12px; color: #777; margin-bottom: 5px;">New Words Every Day</p>
+            <span style="font-size: 11px; color: #999;">4:20 mins</span>
+          </div>
+        </div>
+
       </div>
     </section>
 
+    
     <!-- 2. COURSES PAGE -->
     <section class="page" id="page-courses">
       <h2 class="page-title">Courses</h2>

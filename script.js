@@ -373,3 +373,28 @@ document.addEventListener("DOMContentLoaded", function() {
     if(dot) dot.classList.add('show');
   }
 });
+
+// ==========================================
+// LEVEL 8: VIDEO PLAYER LOGIC
+// ==========================================
+function playVideo(videoUrl, title, description) {
+  // Page change karo
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-video-player').classList.add('active');
+  
+  // Video ka source set karo
+  const videoPlayer = document.getElementById('mainVideoPlayer');
+  const videoSource = document.getElementById('mainVideoSource');
+  
+  videoSource.src = videoUrl;
+  videoPlayer.load(); // Naya video load karo
+  
+  // Title aur Description update karo
+  document.getElementById('videoTitle').innerText = title;
+  document.getElementById('videoDesc').innerText = description;
+  
+  // Video ko automatically play karo
+  videoPlayer.play().catch(error => {
+      console.log("Autoplay blocked by browser", error);
+  });
+}
