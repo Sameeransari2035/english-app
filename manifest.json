@@ -1,6 +1,6 @@
 {
-  "name": "EnglishPro Learning App",
-  "short_name": "EnglishPro",
+  "name": "Talk2Partners",
+  "short_name": "Talk2Partners",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f5f7fa",
