@@ -15,14 +15,11 @@ function closeSidebar() {
 // 2. BOTTOM NAVIGATION (Pages Switch)
 // ==========================================
 function navigate(pageName, element) {
-  // Hide all pages
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   
-  // Show target page
   const targetPage = document.getElementById('page-' + pageName);
   if (targetPage) targetPage.classList.add('active');
   
-  // Update bottom nav active state
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if(element) element.classList.add('active');
 }
@@ -40,7 +37,7 @@ function showDynamicPage(pageType) {
   const contentEl = document.getElementById('dynamicContent');
   
   const pages = {
-         profile: { 
+    profile: { 
       title: 'My Profile', 
       html: `
         <div class="info-card">
@@ -72,14 +69,12 @@ function toggleFaq(element) {
 // LEVEL 1: LOCALSTORAGE (DATA SAVE KARNA)
 // ==========================================
 document.addEventListener("DOMContentLoaded", function() {
-  // Load Data on startup
   let currentCoins = localStorage.getItem('userCoins') || 850;
   let currentLessons = localStorage.getItem('userLessons') || 42;
   let currentStreak = localStorage.getItem('userStreak') || 15;
 
   updateUI(currentCoins, currentLessons, currentStreak);
 
-  // Dark mode check on load
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     document.body.classList.add('dark-mode');
@@ -204,7 +199,7 @@ if ('serviceWorker' in navigator) {
 // ==========================================
 function showToast(message, type = 'default') {
   const container = document.getElementById('toast-container');
-  if(!container) return; // Safety check
+  if(!container) return;
   
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
@@ -241,29 +236,20 @@ function rateUs() {
 // LEVEL 5: SEARCH & FILTER COURSES
 // ==========================================
 function searchCourse() {
-  // 1. User ne jo type kiya hai wo lo aur chhota (lowercase) kar do
   let input = document.getElementById('courseSearch').value.toLowerCase();
-  
-  // 2. Saare course cards ko select karo
   let courseCards = document.querySelectorAll('#course-list .course-card');
-  
   let visibleCount = 0;
 
-  // 3. Har card ko check karo
   courseCards.forEach(card => {
-    // Card ke andar jo course ka naam (h3) hai usko lo
     let courseTitle = card.querySelector('h3').innerText.toLowerCase();
-    
-    // Agar course ke naam mein user ka typed word hai...
     if (courseTitle.includes(input)) {
-      card.style.display = 'flex'; // Card ko dikhao
+      card.style.display = 'flex';
       visibleCount++;
     } else {
-      card.style.display = 'none'; // Card ko chupao
+      card.style.display = 'none';
     }
   });
 
-  // 4. Agar koi course nahi mila, toh "No courses found" message dikhao
   const noCourseMsg = document.getElementById('no-course-msg');
   if (visibleCount === 0) {
     noCourseMsg.style.display = 'block';
@@ -271,10 +257,10 @@ function searchCourse() {
     noCourseMsg.style.display = 'none';
   }
 }
+
 // ==========================================
 // LEVEL 6: EDIT PROFILE
 // ==========================================
-
 function openEditProfile() {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-edit-profile').classList.add('active');
@@ -291,25 +277,20 @@ function saveProfile() {
     return;
   }
 
-  // Email check (@ aur . hona chahiye)
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(emailInput)) {
     showToast('Please enter a valid email!', 'error');
     return;
   }
 
-  // Save to LocalStorage
   localStorage.setItem('userName', nameInput);
   localStorage.setItem('userEmail', emailInput);
-  
-  // Sidebar ka naam update karo
   document.querySelector('.user-info h3').innerText = nameInput;
   
   showToast('Profile updated successfully! ✅', 'success');
   setTimeout(() => { showDynamicPage('profile'); }, 1500);
 }
 
-// App khulte hi saved naam dikhane ke liye
 setTimeout(() => {
   let savedName = localStorage.getItem('userName');
   if (savedName) {
@@ -321,30 +302,23 @@ setTimeout(() => {
 // ==========================================
 // LEVEL 7: NOTIFICATIONS SYSTEM
 // ==========================================
-
-// 1. Notifications ka Data
 const notificationsData = [
   { icon: "fa-gift", color: "#FFB800", title: "Welcome Bonus!", desc: "You received 50 coins as a welcome gift. Keep learning!" },
   { icon: "fa-book", color: "#4A6CF7", title: "New Course Added", desc: "Business English course is now available. Check it out!" },
   { icon: "fa-fire", color: "#dc3545", title: "Streak Alert!", desc: "You are on a 15-day streak. Complete a lesson today to keep it alive!" }
 ];
 
-// 2. Notification page kholne ka function
 function openNotifications() {
-  // Red dot ko hamesha ke liye hatao (LocalStorage mein save kar do)
   document.getElementById('notifDot').classList.remove('show');
   localStorage.setItem('notificationsRead', 'true');
 
-  // Page change karo
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-notifications').classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
-  // List container khaali karo
   const listContainer = document.getElementById('notification-list');
   listContainer.innerHTML = '';
 
-  // Data loop karke HTML generate karo
   notificationsData.forEach(notif => {
     const item = document.createElement('div');
     item.className = 'notif-item';
@@ -361,12 +335,10 @@ function openNotifications() {
   });
 }
 
-// 3. Check karo ki user ne notification padh liya hai ya nahi
 document.addEventListener("DOMContentLoaded", function() {
   let isRead = localStorage.getItem('notificationsRead');
   let dot = document.getElementById('notifDot');
   
-  // Agar pehle se padha hua hai, toh red dot mat dikhao
   if (isRead === 'true') {
     if(dot) dot.classList.remove('show');
   } else {
@@ -378,23 +350,144 @@ document.addEventListener("DOMContentLoaded", function() {
 // LEVEL 8: VIDEO PLAYER LOGIC
 // ==========================================
 function playVideo(videoUrl, title, description) {
-  // Page change karo
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-video-player').classList.add('active');
   
-  // Video ka source set karo
   const videoPlayer = document.getElementById('mainVideoPlayer');
   const videoSource = document.getElementById('mainVideoSource');
   
   videoSource.src = videoUrl;
-  videoPlayer.load(); // Naya video load karo
+  videoPlayer.load();
   
-  // Title aur Description update karo
   document.getElementById('videoTitle').innerText = title;
   document.getElementById('videoDesc').innerText = description;
   
-  // Video ko automatically play karo
   videoPlayer.play().catch(error => {
       console.log("Autoplay blocked by browser", error);
   });
+}
+
+// ==========================================
+// LEVEL 10: AUTO-SCROLL FEEDBACK & POPUP
+// ==========================================
+const slider = document.getElementById('autoSlider');
+let scrollInterval;
+
+if (slider) {
+  slider.addEventListener('mouseenter', () => {
+    slider.style.animationPlayState = 'paused';
+    clearInterval(scrollInterval);
+  });
+  
+  slider.addEventListener('mouseleave', () => {
+    startAutoScroll();
+  });
+
+  slider.addEventListener('touchstart', () => clearInterval(scrollInterval));
+  slider.addEventListener('touchend', () => startAutoScroll());
+
+  function startAutoScroll() {
+    scrollInterval = setInterval(() => {
+      if (!document.getElementById('page-home').classList.contains('active')) return;
+
+      let maxScroll = slider.scrollWidth - slider.clientWidth;
+      
+      if (slider.scrollLeft >= maxScroll - 10) {
+        slider.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        slider.scrollBy({ left: 295, behavior: 'smooth' });
+      }
+    }, 3000);
+  }
+
+  startAutoScroll();
+}
+
+function openReviewPopup(name, stars, text) {
+  document.getElementById('popupName').innerText = name;
+  document.getElementById('popupStars').innerText = stars;
+  document.getElementById('popupText').innerText = `"${text}"`;
+  document.getElementById('popupAvatar').innerText = name.charAt(0);
+  
+  document.getElementById('reviewPopup').classList.add('active');
+}
+
+function closeReviewPopup() {
+  document.getElementById('reviewPopup').classList.remove('active');
+}
+
+// ==========================================
+// LEVEL 11: SHORTS VIDEO POPUP LOGIC
+// ==========================================
+function playShortVideo(videoUrl) {
+  document.getElementById('videoPopup').classList.add('active');
+  
+  const videoPlayer = document.getElementById('shortVideoPlayer');
+  const videoSource = document.getElementById('shortVideoSource');
+  
+  videoSource.src = videoUrl;
+  videoPlayer.load();
+  videoPlayer.play().catch(e => console.log("Autoplay blocked:", e));
+}
+
+function closeVideoPopup() {
+  const videoPlayer = document.getElementById('shortVideoPlayer');
+  videoPlayer.pause();
+  document.getElementById('videoPopup').classList.remove('active');
+  
+  setTimeout(() => {
+    document.getElementById('shortVideoSource').src = "";
+  }, 300);
+}
+
+// ==========================================
+// LEVEL 12: SHORTS PAGE PLAY/PAUSE
+// ==========================================
+function toggleReelPlay(btn) {
+  const video = btn.closest('.reel-card').querySelector('video');
+  
+  if (video.paused) {
+    video.muted = false;
+    video.play();
+    btn.innerHTML = '<i class="fas fa-pause"></i>';
+    setTimeout(() => btn.style.display = 'none', 1000);
+  } else {
+    video.pause();
+    btn.innerHTML = '<i class="fas fa-play"></i>';
+    btn.style.display = 'block';
+  }
+}
+
+// ==========================================
+// LEVEL 13: SHORTS ACTIONS (LIKE, COMMENT, SHARE)
+// ==========================================
+function likeVideo(btn) {
+  btn.classList.toggle('liked');
+  
+  let countSpan = btn.querySelector('span');
+  let count = parseFloat(countSpan.innerText);
+  
+  if (btn.classList.contains('liked')) {
+    countSpan.innerText = (count + 0.1).toFixed(1) + 'K';
+    showToast('Liked! ❤️', 'success');
+  } else {
+    countSpan.innerText = (count - 0.1).toFixed(1) + 'K';
+  }
+}
+
+function openComments() {
+  showToast('Comments section coming soon! 💬', 'success');
+}
+
+function shareVideo() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'EnglishPro Short',
+      text: 'Check out this amazing English learning video!',
+      url: window.location.href
+    }).then(() => console.log('Shared successfully'))
+      .catch((error) => console.log('Error sharing', error));
+  } else {
+    showToast('Link copied to clipboard! 🔗', 'success');
+  }
 }
