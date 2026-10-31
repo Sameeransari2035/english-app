@@ -8,7 +8,7 @@
   "description": "Learn English on the go with EnglishPro.",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3239/3239722.png",
+      "src": "logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
