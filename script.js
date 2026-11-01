@@ -586,3 +586,69 @@ function openPhotoPopup(imageUrl, caption) {
 function closePhotoPopup() {
   document.getElementById('photoPopup').classList.remove('active');
 }
+// ==========================================
+// LEVEL 14: COURSE FOLDERS LOGIC
+// ==========================================
+
+// Folder ka Data (Yahan aap jitni chahein videos add kar sakte hain)
+const folderData = {
+  grammar: {
+    title: 'English Grammar',
+    videos: [
+      { title: 'Introduction to Tenses', desc: 'Learn the basics of present, past, and future tenses.', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: '10:15' },
+      { title: 'Nouns and Pronouns', desc: 'Understand how nouns and pronouns work in sentences.', videoUrl: 'https://www.w3schools.com/html/movie.mp4', duration: '08:30' },
+      { title: 'Active and Passive Voice', desc: 'Convert sentences from active to passive voice.', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: '12:45' }
+    ]
+  },
+  speaking: {
+    title: 'Spoken English',
+    videos: [
+      { title: 'How to Introduce Yourself', desc: 'Master the art of self-introduction.', videoUrl: 'https://www.w3schools.com/html/movie.mp4', duration: '06:20' },
+      { title: 'Daily Use Sentences', desc: 'Common sentences used in everyday life.', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: '15:00' }
+    ]
+  },
+  vocabulary: {
+    title: 'Vocabulary Builder',
+    videos: [
+      { title: '10 Advanced Words', desc: 'Boost your vocabulary with advanced words.', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: '09:10' },
+      { title: 'Idioms and Phrases', desc: 'Learn common English idioms.', videoUrl: 'https://www.w3schools.com/html/movie.mp4', duration: '11:25' }
+    ]
+  }
+};
+
+// Folder kholne ka function
+function openFolder(folderKey) {
+  const folder = folderData[folderKey];
+  if (!folder) return;
+
+  // Page change karo
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-folder-videos').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  // Title set karo
+  document.getElementById('folderTitle').innerText = folder.title;
+
+  // Videos ki list banakar dikhao
+  const videoListContainer = document.getElementById('folderVideosList');
+  videoListContainer.innerHTML = '';
+
+  folder.videos.forEach(video => {
+    const item = document.createElement('div');
+    item.className = 'video-list-item';
+    // Click karne par playVideo function chalega jo aapke paas pehle se hai
+    item.setAttribute('onclick', `playVideo('${video.videoUrl}', '${video.title}', '${video.desc}')`);
+    
+    item.innerHTML = `
+      <div style="width: 100px; height: 65px; background: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <i class="fas fa-play" style="color: white; font-size: 20px;"></i>
+      </div>
+      <div style="padding: 0 10px;">
+        <h3 style="font-size: 14px; margin-bottom: 4px; color: #222;">${video.title}</h3>
+        <p style="font-size: 12px; color: #777; margin-bottom: 5px;">${video.desc}</p>
+        <span style="font-size: 11px; color: #999;">${video.duration}</span>
+      </div>
+    `;
+    videoListContainer.appendChild(item);
+  });
+}

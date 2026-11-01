@@ -259,26 +259,68 @@
       </div>
     </section>
 
-    <!-- 3. COURSES PAGE -->
+        <!-- 3. COURSES PAGE -->
     <section class="page" id="page-courses">
-      <h2 class="page-title">Courses</h2>
-      <div style="margin-bottom: 20px; position: relative;">
-        <i class="fas fa-search" style="position: absolute; left: 15px; top: 15px; color: #888;"></i>
-        <input type="text" id="courseSearch" onkeyup="searchCourse()" placeholder="Search courses..." style="width: 100%; padding: 14px 14px 14px 40px; border-radius: 10px; border: 1px solid #ddd; font-size: 14px; outline: none; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
-      </div>
-      <div id="course-list">
-        <div class="course-card">
-          <div class="course-icon">📚</div>
-          <div class="course-info"><h3>Beginner English</h3><p>12 Lessons • 2 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:40%"></div></div></div>
+      <h2 class="page-title">Recorded Courses</h2>
+      
+      <!-- Folder List -->
+      <div class="folder-list">
+        
+        <!-- Folder 1 -->
+        <div class="folder-card" onclick="openFolder('grammar')">
+          <div class="folder-icon" style="background: #FFE4E1; color: #e74c3c;">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div class="folder-info">
+            <h3>English Grammar</h3>
+            <p>12 Videos • Beginner to Advanced</p>
+          </div>
+          <i class="fas fa-chevron-right folder-arrow"></i>
         </div>
-        <div class="course-card">
-          <div class="course-icon">🗣️</div>
-          <div class="course-info"><h3>Spoken English</h3><p>20 Lessons • 4 hours</p><div class="progress-bar small"><div class="progress-fill" style="width:15%"></div></div></div>
+
+        <!-- Folder 2 -->
+        <div class="folder-card" onclick="openFolder('speaking')">
+          <div class="folder-icon" style="background: #E0F7FA; color: #00BCD4;">
+            <i class="fas fa-microphone-alt"></i>
+          </div>
+          <div class="folder-info">
+            <h3>Spoken English</h3>
+            <p>20 Videos • Daily Conversations</p>
+          </div>
+          <i class="fas fa-chevron-right folder-arrow"></i>
         </div>
+
+        <!-- Folder 3 -->
+        <div class="folder-card" onclick="openFolder('vocabulary')">
+          <div class="folder-icon" style="background: #E8F5E9; color: #4CAF50;">
+            <i class="fas fa-spell-check"></i>
+          </div>
+          <div class="folder-info">
+            <h3>Vocabulary Builder</h3>
+            <p>15 Videos • Learn New Words</p>
+          </div>
+          <i class="fas fa-chevron-right folder-arrow"></i>
+        </div>
+
       </div>
-      <p id="no-course-msg" style="text-align: center; color: #888; display: none; margin-top: 20px;">No courses found! Try another keyword.</p>
     </section>
 
+        <!-- NAYA: FOLDER VIDEOS PAGE -->
+    <section class="page" id="page-folder-videos">
+      <div style="margin-bottom: 15px;">
+        <button onclick="navigate('courses', document.querySelectorAll('.nav-item')[1])" style="background: none; border: none; color: #4A6CF7; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-arrow-left"></i> Back to Courses
+        </button>
+      </div>
+
+      <h2 class="page-title" id="folderTitle">Folder Name</h2>
+      
+      <!-- Videos List (JS se yahan videos aayengi) -->
+      <div class="video-list" id="folderVideosList">
+        <!-- Videos yahan load hongi -->
+      </div>
+    </section>
+    
     <!-- 4. PARTNER PAGE -->
     <section class="page" id="page-partner">
       <h2 class="page-title">Speaking Partners</h2>
