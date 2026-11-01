@@ -37,15 +37,48 @@ function showDynamicPage(pageType) {
   const contentEl = document.getElementById('dynamicContent');
   
   const pages = {
-    profile: { 
+        profile: { 
       title: 'My Profile', 
       html: `
-        <div class="info-card">
-          <h3>👤 <span id="displayName">John Doe</span></h3>
-          <p>Email: <span id="displayEmail">john@example.com</span></p>
-          <p>Joined: Jan 2024</p>
-          <p>Level: Intermediate (B1)</p>
-          <button class="btn-primary" style="margin-top: 15px; padding: 8px 15px; font-size: 13px;" onclick="openEditProfile()">Edit Profile</button>
+        <div class="info-card" style="text-align: center; padding: 30px 20px;">
+          
+          <!-- Avatar Image -->
+          <div style="position: relative; display: inline-block; margin-bottom: 15px;">
+            <img id="profileAvatar" src="${localStorage.getItem('userAvatar') || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'}" 
+                 style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #4A6CF7; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <button onclick="openEditProfile()" style="position: absolute; bottom: 0; right: 0; background: #4A6CF7; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+              <i class="fas fa-camera" style="font-size: 14px;"></i>
+            </button>
+          </div>
+
+          <!-- Name & Bio -->
+          <h3 style="font-size: 20px; margin-bottom: 5px; color: #222;">${localStorage.getItem('userName') || 'John Doe'}</h3>
+          <p style="font-size: 13px; color: #777; margin-bottom: 15px;">${localStorage.getItem('userEmail') || 'john@example.com'}</p>
+          
+          <div style="display: inline-block; background: #f0f4ff; color: #4A6CF7; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 20px;">
+            Level: Intermediate (B1)
+          </div>
+
+          <!-- Stats Row -->
+          <div style="display: flex; justify-content: space-around; border-top: 1px solid #eee; padding-top: 20px; margin-top: 10px;">
+            <div>
+              <h4 style="font-size: 18px; color: #4A6CF7; margin-bottom: 2px;">${localStorage.getItem('userLessons') || 42}</h4>
+              <p style="font-size: 11px; color: #777;">Lessons</p>
+            </div>
+            <div>
+              <h4 style="font-size: 18px; color: #4A6CF7; margin-bottom: 2px;">${localStorage.getItem('userStreak') || 15}</h4>
+              <p style="font-size: 11px; color: #777;">Day Streak</p>
+            </div>
+            <div>
+              <h4 style="font-size: 18px; color: #4A6CF7; margin-bottom: 2px;">850</h4>
+              <p style="font-size: 11px; color: #777;">Coins</p>
+            </div>
+          </div>
+
+          <!-- Edit Button -->
+          <button class="btn-primary" style="margin-top: 25px; width: 100%; padding: 12px;" onclick="openEditProfile()">
+            <i class="fas fa-edit"></i> Edit Profile
+          </button>
         </div>
       ` 
     },
@@ -259,15 +292,39 @@ function searchCourse() {
 }
 
 // ==========================================
-// LEVEL 6: EDIT PROFILE
+// LEVEL 6: EDIT PROFILE (UPDATED)
 // ==========================================
+
+// 1. Edit Profile kholna
 function openEditProfile() {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-edit-profile').classList.add('active');
+  
+  // Purana data form mein daalo
   document.getElementById('profileName').value = localStorage.getItem('userName') || "John Doe";
   document.getElementById('profileEmail').value = localStorage.getItem('userEmail') || "john@example.com";
+  
+  // Avatar preview set karo
+  const savedAvatar = localStorage.getItem('userAvatar') || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+  document.getElementById('editAvatarPreview').src = savedAvatar;
 }
 
+// 2. Naya Avatar upload karte waqt preview dikhana
+let newAvatarBase64 = null; // Temp variable nayi image save karne ke liye
+
+function previewAvatar(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('editAvatarPreview').src = e.target.result;
+      newAvatarBase64 = e.target.result; // Base64 save kar liya
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// 3. Profile Save karna (Validation ke saath)
 function saveProfile() {
   let nameInput = document.getElementById('profileName').value.trim();
   let emailInput = document.getElementById('profileEmail').value.trim();
@@ -283,22 +340,44 @@ function saveProfile() {
     return;
   }
 
+  // Data save karo
   localStorage.setItem('userName', nameInput);
   localStorage.setItem('userEmail', emailInput);
+  
+  // Agar nayi image select ki gayi hai toh use save karo
+  if (newAvatarBase64) {
+    localStorage.setItem('userAvatar', newAvatarBase64);
+    newAvatarBase64 = null; // Reset karo
+  }
+  
+  // Sidebar ka naam aur avatar update karo
   document.querySelector('.user-info h3').innerText = nameInput;
   
   showToast('Profile updated successfully! ✅', 'success');
-  setTimeout(() => { showDynamicPage('profile'); }, 1500);
+  
+  // Wapas profile page par jao aur usko refresh karo
+  setTimeout(() => { 
+    showDynamicPage('profile'); 
+  }, 1000);
 }
 
+// 4. App khulte hi Sidebar mein saved avatar dikhana
 setTimeout(() => {
   let savedName = localStorage.getItem('userName');
+  let savedAvatar = localStorage.getItem('userAvatar');
+  
   if (savedName) {
     let sidebarName = document.querySelector('.user-info h3');
     if (sidebarName) sidebarName.innerText = savedName;
   }
+  
+  if (savedAvatar) {
+    let sidebarAvatar = document.querySelector('.user-avatar');
+    if (sidebarAvatar) {
+      sidebarAvatar.innerHTML = `<img src="${savedAvatar}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+    }
+  }
 }, 500);
-
 // ==========================================
 // LEVEL 7: NOTIFICATIONS SYSTEM
 // ==========================================
@@ -490,4 +569,20 @@ function shareVideo() {
   } else {
     showToast('Link copied to clipboard! 🔗', 'success');
   }
+}
+// ==========================================
+// LEVEL 17: PHOTO GALLERY POPUP
+// ==========================================
+
+function openPhotoPopup(imageUrl, caption) {
+  // Image aur caption set karo
+  document.getElementById('popupPhotoImg').src = imageUrl;
+  document.getElementById('popupPhotoCaption').innerText = caption;
+  
+  // Popup kholo
+  document.getElementById('photoPopup').classList.add('active');
+}
+
+function closePhotoPopup() {
+  document.getElementById('photoPopup').classList.remove('active');
 }

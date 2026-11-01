@@ -174,6 +174,36 @@
           <div class="short-overlay"><i class="fas fa-play"></i><span>500K views</span></div>
         </div>
       </div>
+
+      <!-- NAYA: PHOTO FEED (IMAGE POSTS) -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; margin-bottom: 15px;">
+        <h2 class="page-title" style="margin-bottom: 0;">Photo Gallery</h2>
+      </div>
+
+      <div class="photo-grid">
+        
+        <!-- Photo 1 -->
+        <div class="photo-item" onclick="openPhotoPopup('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Learning together is always fun!')">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Photo">
+        </div>
+
+        <!-- Photo 2 -->
+        <div class="photo-item" onclick="openPhotoPopup('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Books are the best friends of a learner.')">
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Photo">
+        </div>
+
+        <!-- Photo 3 -->
+        <div class="photo-item" onclick="openPhotoPopup('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Practice makes a man perfect.')">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Photo">
+        </div>
+
+        <!-- Photo 4 -->
+        <div class="photo-item" onclick="openPhotoPopup('https://images.unsplash.com/photo-1543165365-07232d1dfcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Grammar made easy!')">
+          <img src="https://images.unsplash.com/photo-1543165365-07232d1dfcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Photo">
+        </div>
+
+      </div>
+
       <!-- STUDENTS FEEDBACK -->
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; margin-bottom: 15px;">
         <h2 class="page-title" style="margin-bottom: 0;">Student Reviews</h2>
@@ -372,22 +402,40 @@
       <div id="dynamicContent"></div>
     </section>
 
-    <!-- 8. EDIT PROFILE PAGE -->
+       <!-- 7. EDIT PROFILE PAGE -->
     <section class="page" id="page-edit-profile">
       <h2 class="page-title">Edit Profile</h2>
-      <div class="info-card">
+      
+      <div class="info-card" style="padding: 25px;">
+        
+        <!-- Profile Picture Upload -->
+        <div style="text-align: center; margin-bottom: 25px;">
+          <img id="editAvatarPreview" src="" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #4A6CF7; margin-bottom: 10px; background: #eee;">
+          <br>
+          <label for="avatarUpload" style="display: inline-block; background: #f0f4ff; color: #4A6CF7; padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer;">
+            <i class="fas fa-camera"></i> Change Picture
+          </label>
+          <input type="file" id="avatarUpload" accept="image/*" style="display: none;" onchange="previewAvatar(event)">
+        </div>
+
+        <!-- Name Input -->
         <div style="margin-bottom: 15px;">
           <label style="font-size: 13px; color: #666; font-weight: 600;">Full Name</label>
-          <input type="text" id="profileName" placeholder="Enter your name" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 5px; outline: none;">
+          <input type="text" id="profileName" placeholder="Enter your name" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 5px; outline: none; font-size: 14px;">
         </div>
+
+        <!-- Email Input -->
         <div style="margin-bottom: 15px;">
           <label style="font-size: 13px; color: #666; font-weight: 600;">Email Address</label>
-          <input type="email" id="profileEmail" placeholder="Enter your email" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 5px; outline: none;">
+          <input type="email" id="profileEmail" placeholder="Enter your email" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 5px; outline: none; font-size: 14px;">
         </div>
-        <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="saveProfile()">Save Changes</button>
+
+        <!-- Save Button -->
+        <button class="btn-primary" style="width: 100%; margin-top: 10px; padding: 14px;" onclick="saveProfile()">Save Changes</button>
+        
+        <button onclick="showDynamicPage('profile')" style="width: 100%; margin-top: 10px; padding: 12px; background: #f0f0f0; color: #555; border: none; border-radius: 25px; font-weight: 600; cursor: pointer;">Cancel</button>
       </div>
     </section>
-
     <!-- 9. NOTIFICATIONS PAGE -->
     <section class="page" id="page-notifications">
       <div style="margin-bottom: 20px;">
@@ -472,6 +520,19 @@
 
   <!-- TOAST CONTAINER -->
   <div id="toast-container"></div>
+
+    <!-- NAYA: PHOTO POPUP MODAL -->
+  <div id="photoPopup" class="modal-overlay" onclick="closePhotoPopup()">
+    <div class="modal-content" style="padding: 0; background: #000; max-width: 90%; overflow: hidden; border-radius: 15px;" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closePhotoPopup()" style="z-index: 10; background: rgba(255,255,255,0.2); color: white;"><i class="fas fa-times"></i></button>
+      
+      <img id="popupPhotoImg" src="" style="width: 100%; display: block; max-height: 70vh; object-fit: contain;">
+      
+      <div style="padding: 15px; background: #111; color: white;">
+        <p id="popupPhotoCaption" style="font-size: 14px;">Caption</p>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
