@@ -481,8 +481,9 @@ body.dark-mode p {
   }
 }
 
-/* SEARCH BAR */
-#courseSearch:focus {
+/* SEARCH BAR FOCUS EFFECT */
+#courseSearch:focus,
+#faqSearch:focus {
   border-color: #4A6CF7;
   box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
 }
@@ -538,14 +539,16 @@ body.dark-mode p {
   border-radius: 10px;
 }
 
+/* VIDEO CARD DESIGN */
 .video-card {
   min-width: 260px;
   max-width: 260px;
-  background: white;
+  background: #1e1e1e; /* Card ka background dark kar diya */
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
+  border: 1px solid #333; /* Halki si border */
 }
 
 .video-card video {
@@ -554,6 +557,23 @@ body.dark-mode p {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   background: #000;
+  border-bottom: 1px solid #333; 
+}
+
+.video-info {
+  padding: 12px 15px; /* Thoda sa margin badhaya */
+}
+
+.video-info h3 {
+  font-size: 14px;
+  color: #ffffff; /* Text ko White kar diya */
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.video-info p {
+  font-size: 12px;
+  color: #aaaaaa; /* Subtitle ko halka grey kiya */
 }
 
 /* ALL VIDEOS LIST */
@@ -976,6 +996,7 @@ body:has(#page-shorts.active) .main-content {
 body:has(#page-shorts.active) .page-title {
   display: none;
 }
+
 /* ===== PHOTO GALLERY GRID ===== */
 .photo-grid {
   display: grid;
@@ -989,8 +1010,9 @@ body:has(#page-shorts.active) .page-title {
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  aspect-ratio: 1 / 1; /* Perfect Square */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 1 / 1;
+  /* Perfect Square */
 }
 
 .photo-item img {
@@ -1010,8 +1032,15 @@ body:has(#page-shorts.active) .page-title {
 }
 
 @keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* ===== COURSE FOLDERS DESIGN ===== */
@@ -1028,7 +1057,7 @@ body:has(#page-shorts.active) .page-title {
   display: flex;
   align-items: center;
   gap: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   border: 1px solid #f0f0f0;
@@ -1036,7 +1065,7 @@ body:has(#page-shorts.active) .page-title {
 
 .folder-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .folder-icon {
@@ -1075,9 +1104,158 @@ body.dark-mode .folder-card {
   background: #1e1e1e;
   border-color: #333;
 }
+
 body.dark-mode .folder-info h3 {
   color: #fff;
 }
+
 body.dark-mode .folder-info p {
   color: #aaa;
+}
+
+/* FAQ */
+.faq-item {
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  border: 1px solid #f0f0f0;
+}
+
+.faq-question {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  /* Text color dark kar diya */
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 15px;
+  font-size: 13px;
+  color: #666;
+  /* Answer ka color grey */
+  transition: all 0.3s;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 200px;
+  padding: 0 15px 15px;
+}
+
+.faq-question i {
+  color: #4A6CF7;
+  transition: 0.3s;
+}
+
+.faq-item.open .faq-question i {
+  transform: rotate(180deg);
+}
+
+/* Dark Mode Fix for FAQ */
+body.dark-mode .faq-item {
+  background: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode .faq-question {
+  color: #fff;
+  /* Dark mode mein text white */
+}
+
+body.dark-mode .faq-answer {
+  color: #ccc;
+}
+
+/* ===== LOGIN PAGE DESIGN ===== */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 150px);
+  padding: 20px;
+  text-align: center;
+}
+
+.login-logo {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #4A6CF7, #6B8DFF);
+  color: white;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 20px rgba(74, 108, 247, 0.3);
+}
+
+.login-title {
+  font-size: 24px;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.input-group {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 13px;
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+  background: white;
+}
+
+.input-group input:focus {
+  border-color: #4A6CF7;
+  box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+}
+
+/* Dark Mode Fix for Login */
+body.dark-mode .login-title {
+  color: #fff;
+}
+
+body.dark-mode .login-subtitle {
+  color: #aaa;
+}
+
+body.dark-mode .input-group label {
+  color: #ccc;
+}
+
+body.dark-mode .input-group input {
+  background: #1e1e1e;
+  color: #fff;
+  border-color: #333;
 }

@@ -652,3 +652,106 @@ function openFolder(folderKey) {
     videoListContainer.appendChild(item);
   });
 }
+
+// ==========================================
+// LEVEL 20: FAQ SEARCH LOGIC
+// ==========================================
+function searchFaq() {
+  // User ne jo type kiya hai wo lo
+  let input = document.getElementById('faqSearch').value.toLowerCase();
+  
+  // Saare FAQ items ko select karo
+  let faqItems = document.querySelectorAll('#faqList .faq-item');
+  
+  let visibleCount = 0;
+
+  faqItems.forEach(item => {
+    // Sawaal ka text lo
+    let questionText = item.querySelector('.faq-question span').innerText.toLowerCase();
+    // Jawab ka text lo
+    let answerText = item.querySelector('.faq-answer').innerText.toLowerCase();
+    
+    // Agar sawaal ya jawab mein user ka typed word hai...
+    if (questionText.includes(input) || answerText.includes(input)) {
+      item.style.display = 'block'; // Dikhao
+      visibleCount++;
+    } else {
+      item.style.display = 'none'; // Chupao
+    }
+  });
+
+  // Agar kuch nahi mila, toh message dikhao
+  const noFaqMsg = document.getElementById('no-faq-msg');
+  if (visibleCount === 0) {
+    noFaqMsg.style.display = 'block';
+  } else {
+    noFaqMsg.style.display = 'none';
+  }
+}
+
+// ==========================================
+// LEVEL 21: LOGIN & LOGOUT SYSTEM
+// ==========================================
+
+// 1. Login form submit hone par
+function handleLogin(event) {
+  event.preventDefault(); // Page refresh hone se roko
+  
+  let nameInput = document.getElementById('loginName').value.trim();
+  let emailInput = document.getElementById('loginEmail').value.trim();
+
+  // Data LocalStorage mein save karo
+  localStorage.setItem('userName', nameInput);
+  localStorage.setItem('userEmail', emailInput);
+  localStorage.setItem('isLoggedIn', 'true');
+
+  // Sidebar mein naam update karo
+  let sidebarName = document.querySelector('.user-info h3');
+  if (sidebarName) sidebarName.innerText = nameInput;
+  
+  let sidebarEmail = document.querySelector('.user-info p');
+  if (sidebarEmail) sidebarEmail.innerText = "Level: Intermediate";
+
+  showToast(`Welcome, ${nameInput}! 🎉`, 'success');
+
+  // Home page par le jao
+  setTimeout(() => {
+    navigate('home', document.querySelector('.nav-item'));
+  }, 500);
+}
+
+// 2. Logout function
+function handleLogout() {
+  // Sab data clear karo
+  localStorage.removeItem('userName');
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('isLoggedIn');
+  
+  closeSidebar();
+  showToast('Logged out successfully! 👋', 'success');
+
+  // Login page par le jao
+  setTimeout(() => {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-login').classList.add('active');
+  }, 500);
+}
+
+// 3. App load hote hi check karo ki user login hai ya nahi
+document.addEventListener("DOMContentLoaded", function() {
+  let isLoggedIn = localStorage.getItem('isLoggedIn');
+  
+  if (isLoggedIn === 'true') {
+    // User pehle se login hai -> Home dikhao
+    let savedName = localStorage.getItem('userName');
+    let sidebarName = document.querySelector('.user-info h3');
+    if (sidebarName && savedName) sidebarName.innerText = savedName;
+    
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-home').classList.add('active');
+  } else {
+    // User login nahi hai -> Login page dikhao
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-login').classList.add('active');
+  }
+});

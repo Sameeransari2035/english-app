@@ -44,7 +44,6 @@
       <a href="#" onclick="showDynamicPage('reactions')"><i class="fas fa-heart"></i> Partners Reactions</a>
       <a href="#" onclick="showDynamicPage('activities')"><i class="fas fa-history"></i> My Activities</a>
       <a href="#" onclick="showDynamicPage('transactions')"><i class="fas fa-exchange-alt"></i> Transaction History</a>
-      <a href="#" onclick="showDynamicPage('faqs')"><i class="fas fa-question-circle"></i> FAQs</a>
       <a href="#" onclick="showDynamicPage('invite')"><i class="fas fa-user-plus"></i> Invite Friends</a>
       <a href="#" onclick="showDynamicPage('settings')"><i class="fas fa-cog"></i> Settings</a>
       
@@ -52,15 +51,46 @@
       <a href="#" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark Mode <span id="dark-mode-status" style="margin-left:auto; font-size:12px; color:#888;">OFF</span></a>
       
       <a href="#" onclick="showDynamicPage('policies')"><i class="fas fa-file-contract"></i> Refund & Other Policies</a>
+            <!-- LOGOUT BUTTON -->
+      <a href="#" onclick="handleLogout()" style="color: #e74c3c; margin-top: 10px;">
+        <i class="fas fa-sign-out-alt" style="color: #e74c3c;"></i> Logout
+      </a>
       <button class="rate-btn" onclick="rateUs()"><i class="fas fa-star"></i> Rate Us</button>
     </nav>
   </aside>
 
   <!-- MAIN CONTENT AREA -->
   <main class="main-content" id="mainContent">
+
+        <!-- NAYA: LOGIN PAGE -->
+    <section class="page active" id="page-login">
+      <div class="login-container">
+        <div class="login-logo">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h1 class="login-title">Welcome to Talk2Partners</h1>
+        <p class="login-subtitle">Login to continue your English learning journey.</p>
+        
+        <form onsubmit="handleLogin(event)">
+          <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="loginName" placeholder="Enter your name" required>
+          </div>
+          
+          <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email" required>
+          </div>
+          
+          <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px; padding: 14px; font-size: 15px;">
+            Login <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </section>
     
     <!-- 1. HOME PAGE -->
-    <section class="page active" id="page-home">
+        <section class="page" id="page-home">
       
       <!-- HERO THUMBNAIL -->
       <div class="hero-thumbnail" onclick="navigate('partner', document.querySelectorAll('.nav-item')[2])">
@@ -155,7 +185,7 @@
             <div class="shorts-slider">
         <!-- Short 1 -->
         <div class="home-short-card" onclick="playShortVideo('https://www.w3schools.com/html/mov_bbb.mp4')">
-          <img src="https://images.unsplash.com/photo-1543165365-07232d1dfcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Short">
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D" alt="Short">
           <div class="short-overlay"><i class="fas fa-play"></i><span>1.2M views</span></div>
         </div>
         <!-- Short 2 -->
@@ -198,8 +228,8 @@
         </div>
 
         <!-- Photo 4 -->
-        <div class="photo-item" onclick="openPhotoPopup('https://images.unsplash.com/photo-1543165365-07232d1dfcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Grammar made easy!')">
-          <img src="https://images.unsplash.com/photo-1543165365-07232d1dfcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Photo">
+        <div class="photo-item" onclick="openPhotoPopup('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D', 'Grammar made easy!')">
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D" alt="Photo">
         </div>
 
       </div>
@@ -225,6 +255,31 @@
             <div><h4>Sneha Sharma</h4><div class="feedback-stars">⭐⭐⭐⭐⭐</div></div>
           </div>
           <p>"Best app for grammar. Premium course is worth every penny. Tutors are very supportive."</p>
+        </div>
+                <!-- Review 3 -->
+        <div class="feedback-card"
+          onclick="openReviewPopup('Rahul Verma', '⭐⭐⭐⭐', 'Speaking partners feature is amazing. Main daily native speakers ke sath practice karta hoon.')">
+          <div class="feedback-header">
+            <div class="feedback-avatar" style="background: #28a745;">R</div>
+            <div>
+              <h4>Rahul Verma</h4>
+              <div class="feedback-stars">⭐⭐⭐⭐</div>
+            </div>
+          </div>
+          <p>"Speaking partners feature is amazing. Main daily native speakers ke sath practice karta hoon."</p>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="feedback-card"
+          onclick="openReviewPopup('Priya Singh', '⭐⭐⭐⭐⭐', 'The UI is so clean and easy to use. The daily quiz helps me stay consistent with my learning. Highly recommended!')">
+          <div class="feedback-header">
+            <div class="feedback-avatar" style="background: #9b59b6;">P</div>
+            <div>
+              <h4>Priya Singh</h4>
+              <div class="feedback-stars">⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+          <p>"The UI is so clean and easy to use. The daily quiz helps me stay consistent with my learning. Highly recommended!"</p>
         </div>
       </div>
     </section>
@@ -431,11 +486,79 @@
       </div> <!-- shorts-feed closes here -->
     </section>
 
-    <!-- 6. HELP FAQS PAGE -->
+        <!-- 6. HELP FAQS PAGE -->
     <section class="page" id="page-help">
       <h2 class="page-title">Help & FAQs</h2>
-      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question"><span>How do I earn coins?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer">You earn coins by completing lessons, daily practice, and inviting friends.</div></div>
-      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-question"><span>How to book a partner?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer">Go to Partner section, select a partner, and tap Chat to start a session.</div></div>
+      
+      <!-- Search Bar -->
+      <div style="margin-bottom: 20px; position: relative;">
+        <i class="fas fa-search" style="position: absolute; left: 15px; top: 15px; color: #888;"></i>
+        <input type="text" id="faqSearch" onkeyup="searchFaq()" placeholder="Search your question..." 
+               style="width: 100%; padding: 14px 14px 14px 40px; border-radius: 10px; border: 1px solid #ddd; font-size: 14px; outline: none; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+      </div>
+
+      <!-- FAQ List -->
+      <div id="faqList">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>How do I earn coins?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            You earn coins by completing lessons, playing daily quizzes, maintaining your streak, and inviting friends to join the app.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>How to book a speaking partner?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Go to the Partner tab, browse through available partners, and tap on the "Chat" button next to any partner to start a conversation.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>What is the refund policy?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Refunds are available within 7 days of purchase if less than 20% of the course content has been accessed. Please contact support for assistance.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>Can I use the app offline?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Yes! Once you install the app, some content like downloaded videos and saved lessons can be accessed offline. However, live chats and new content require an internet connection.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>How do I change my profile picture?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Go to the side menu (hamburger icon), select "My Profile", and tap on the "Edit Profile" button. There you can upload a new profile picture and update your details.
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- No Result Message -->
+      <p id="no-faq-msg" style="text-align: center; color: #888; display: none; margin-top: 20px;">No FAQs found. Try another keyword.</p>
     </section>
 
     <!-- 7. DYNAMIC PAGE -->
